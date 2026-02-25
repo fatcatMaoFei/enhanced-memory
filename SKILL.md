@@ -1,16 +1,16 @@
 ---
-name: tagged-memory
+name: enhanced-memory
 description: >
-  A hierarchical, tag-based memory system for OpenClaw agents. Replaces the
-  default single-file MEMORY.md with organized category directories
-  (current/archived/relation/food/training/etc.), a [category:value] tag
-  indexing scheme with multi-tag AND search, automatic lifecycle management
-  (6-month active → archive, never delete), and cross-category smart retrieval.
-  Solves the pain of slow lookups, cluttered context, and lost memories that
-  come with a flat memory file.
+  An enhanced memory system for OpenClaw agents that replaces the default
+  single-file MEMORY.md with a complete memory architecture: hierarchical
+  directory organization by category, [category:value] tag indexing with
+  multi-tag AND search, automatic lifecycle management (active → archive,
+  never delete), and intelligent cross-category retrieval that auto-routes
+  queries to the right memory module. Gives your agent structured, searchable,
+  long-lived memory out of the box.
 ---
 
-# Tagged Memory
+# Enhanced Memory
 
 A structured memory system that gives your OpenClaw agent **organized, searchable, long-lived memory** instead of a single monolithic `MEMORY.md`.
 
