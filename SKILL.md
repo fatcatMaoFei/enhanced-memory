@@ -23,7 +23,7 @@ The default `MEMORY.md` approach hits a wall fast:
 - No retrieval strategy → agent re-reads everything or misses what matters
 - No lifecycle → old entries clutter active memory forever
 
-Tagged Memory fixes all of this.
+Enhanced Memory fixes all of this.
 
 ## Core Features
 
@@ -51,25 +51,25 @@ Tag any line in any memory file with `[category:value]` markers:
 ```markdown
 ## 2026-02-20
 
-- Had lunch with Zhang Hao [人物:张浩东] [类型:聚餐] [地点:campus]
-- Discussed the new project deadline [项目:openclaw] [类型:会议]
-- Yoyo learned a new trick today [宠物:悠悠] [类型:milestone]
+- Had lunch with a friend [person:friend_name] [type:meal] [location:downtown]
+- Discussed the new project deadline [project:project_name] [type:meeting]
+- Pet learned a new trick today [pet:pet_name] [type:milestone]
 ```
 
 Tags support multi-tag AND search — find the exact memory you need:
 
 ```bash
 # Single tag search
-python3 scripts/memory_tag_search.py "人物:张浩东"
+python3 scripts/memory_tag_search.py "person:friend_name"
 
 # Multi-tag AND search (all tags must match)
-python3 scripts/memory_tag_search.py "人物:王隆哲" "类型:开票信息"
+python3 scripts/memory_tag_search.py "person:colleague" "type:invoice"
 
 # List all tags in the system
 python3 scripts/memory_tag_search.py --list-tags
 
 # List tags under a specific category
-python3 scripts/memory_tag_search.py --list-tags --category 人物
+python3 scripts/memory_tag_search.py --list-tags --category person
 ```
 
 ### 3. Lifecycle Management
@@ -100,10 +100,10 @@ The retrieval strategy script auto-classifies queries and searches the right dir
 python3 scripts/memory_retrieval_strategy.py "What did I eat yesterday?"
 # → Searches memory/food/ + memory/current/
 
-python3 scripts/memory_retrieval_strategy.py "How is Yoyo doing?"
-# → Searches memory/RELATION/悠悠.md + memory/connections.md
+python3 scripts/memory_retrieval_strategy.py "How is my pet doing?"
+# → Searches memory/RELATION/<pet_name>.md + memory/connections.md
 
-python3 scripts/memory_retrieval_strategy.py "Yang Lingxiao"
+python3 scripts/memory_retrieval_strategy.py "Friend Name"
 # → Searches memory/RELATION/ + memory/connections.md
 ```
 
@@ -140,7 +140,7 @@ Add the following to your `AGENTS.md` memory section:
 
 ### Tagging Convention
 When writing memory entries, tag important lines:
-  [人物:name] [类型:type] [地点:place] [项目:project] [情绪:mood]
+  [person:name] [type:event_type] [location:place] [project:name] [mood:emotion]
 ```
 
 ### HEARTBEAT.md
@@ -170,7 +170,24 @@ Set up monthly auto-archival:
 - **Memory directories**: Add new modules to `MODULES_TO_ARCHIVE` in `memory_lifecycle_manager.py`
 - **Tag categories**: Tags are freeform — just use `[category:value]` in any `.md` file
 
+## Tag Category Examples
+
+Common tag categories you might use:
+
+- `[person:name]` — People mentioned
+- `[type:event_type]` — Event classification (meeting, meal, milestone, etc.)
+- `[location:place]` — Where something happened
+- `[project:name]` — Project or work context
+- `[mood:emotion]` — Emotional state
+- `[pet:name]` — Pet-related entries
+- `[date:YYYY-MM-DD]` — Explicit date tagging
+- `[priority:level]` — Importance (high/medium/low)
+
 ## Requirements
 
 - Python 3.8+
 - No external dependencies (stdlib only)
+
+## License
+
+MIT
